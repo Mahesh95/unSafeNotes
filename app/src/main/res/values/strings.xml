@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">unSafeNotes</string>
+    <string name="work_notes_string">Work</string>
+    <string name="personal_notes_string">Personal</string>
+    <string name="poetry_string">Dead Poet\'s Society</string>
+    <string name="open_drawer">open_drawer</string>
+    <string name="close_drawer">close_drawer</string>
+    <string name="note_category_string">Category</string>
+    <string name="work_radio_button_string">Work</string>
+    <string name="personal_radio_button_string">Personal</string>
+    <string name="poetry_radio_button_string">Poetry</string>
+</resources>

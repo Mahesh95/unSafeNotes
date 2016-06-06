@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+    <style name="recycler_view_item_title_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="recycler_view_item_content_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="recycler_view_item_date_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="title_edit_text_style">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:hint">Note Title</item>
+        <item name="android:textColorHint">#ffffff</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:inputType">textCapWords|textNoSuggestions</item>
+    </style>
+
+    <style name="content_edit_text_style">
+        <item name="android:inputType">textMultiLine|textNoSuggestions|textCapSentences</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+</resources>
