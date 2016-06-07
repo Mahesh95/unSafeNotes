@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +17,17 @@ import java.util.List;
 
 /**
  * Created by mahesh on 1/6/16.
+ * this fragment is hosted by the main activity
+ * it uses a recyclerView with GridLayoutManager(2 columns) to show the note items
  */
 public class NotesFragment extends Fragment {
+    private static final String TAG = "NotesFragment";
     private RecyclerView mNotesRecyclerView;
-    private FloatingActionButton mFab;
+    private FloatingActionButton mFab;          //floating action button for adding notes
     private NotesAdapter mAdapter;
-    private static final String ARG_NOTES_CATEGORY = "notes_category";
+    private static final String ARG_NOTES_CATEGORY = "notes_category"; //this argument specifies which category notes are to be displayed
 
+    //this method returns an instance of notesFragment along with category of the notes stashed in its arguments
     public static NotesFragment newInstance(String notesCategory){
         Bundle args = new Bundle();
         args.putSerializable(ARG_NOTES_CATEGORY, notesCategory);
@@ -50,11 +55,20 @@ public class NotesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        UpdateUI();
+    }
+
+    //this method updates the UI with note items
     private void UpdateUI() {
         String category = getArguments().getSerializable(ARG_NOTES_CATEGORY).toString();
 
+        // acquiring a list of notes depending upon the category
         List<Note> notes = NotesSingleton.get(getActivity()).getCategorisedNotes(category);
 
+        //setting up adapter
         if(mAdapter == null){
             mAdapter = new NotesAdapter(notes);
             mNotesRecyclerView.setAdapter(mAdapter);
@@ -65,6 +79,7 @@ public class NotesFragment extends Fragment {
     }
 
     private class NotesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private Note mNote;
         private TextView mNotesTitleTextView;
         private TextView mNotesDateTextView;
         private TextView mNotesContentTextView;
@@ -79,8 +94,11 @@ public class NotesFragment extends Fragment {
         }
 
         public void bindNote(Note note){
-            String dateFormat = "YYYY, MMM dd";
+            mNote = note;
+            String dateFormat = "MMM dd";
             String dateString = DateFormat.format(dateFormat, note.getDate()).toString();
+
+            Log.i(TAG,"date is :" + mNote.getDate().toString());
             mNotesDateTextView.setText(dateString);
             mNotesContentTextView.setText(note.getHintString()+"....");
             mNotesTitleTextView.setText
@@ -89,7 +107,8 @@ public class NotesFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-
+            Intent intent = NoteViewActivity.getIntent(getActivity(), mNote.getId());
+            startActivity(intent);
         }
     }
 

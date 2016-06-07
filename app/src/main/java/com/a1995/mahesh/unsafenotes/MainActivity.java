@@ -1,8 +1,13 @@
+//File name - MainActivity.java
+//Author - Mahesh
+
+/* MainActivity is the launcher activity of the app
+   It hosts notesFragment */
+
 package com.a1995.mahesh.unsafenotes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private Fragment mFragment;
 
+// method to get properly configured intent of MainActivity
     public static Intent getIntent(Context context){
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -33,24 +39,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);        //inflating toolbar
         setSupportActionBar(mToolbar);
 
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open_drawer, R.string.close_drawer);
-        mDrawer.setDrawerListener(mDrawerToggle);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);      //inflating DrawerLayout
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open_drawer, R.string.close_drawer);  //creating  a drawer toggle button
+        mDrawer.setDrawerListener(mDrawerToggle);           //wiring toggle button with drawer
 
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);  //inflating navigation view
         setUpDrawerContent(mNavigationView);
 
         ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);          //this enables hamburger icon in actionbar
         mFragment = NotesFragment.newInstance("work");
-        addFragment();
+        addFragment();                                      //this method places mFragment in fragment container
 
     }
 
+    //this method creates listener for navigation view items
     private void setUpDrawerContent(NavigationView navigationView){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,23 +68,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //this method wires navigation view items with actions on selection
     private void selectDrawerItem(MenuItem item){
 
-
+    // NotesFragment.newInstance(String category) returns a fragment containing notes of that category
         switch (item.getItemId()){
             case R.id.work_notes:
                 mFragment = NotesFragment.newInstance("work");
-                //configure workNotes fragment
                 break;
 
             case R.id.personal:
                 mFragment = NotesFragment.newInstance("personal");
-                //configure personalNotes fragment
                 break;
 
             case R.id.poetry:
                 mFragment = NotesFragment.newInstance("poetry");
-                //configure poetry fragment
                 break;
         }
 

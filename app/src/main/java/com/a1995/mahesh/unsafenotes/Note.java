@@ -1,10 +1,13 @@
 package com.a1995.mahesh.unsafenotes;
 
+import android.util.Log;
+
 import java.util.Date;
 import java.util.UUID;
 
 /**
  * Created by mahesh on 5/6/16.
+ *
  */
 public class Note {
     private UUID mId;
@@ -13,6 +16,8 @@ public class Note {
     private Date mDate;
     private String mContent;
 
+    private static final String TAG = "note";
+
     public Note(){
         this (UUID.randomUUID());
     }
@@ -20,6 +25,7 @@ public class Note {
     public Note(UUID uuid){
         this.mId = uuid;
         this.mDate = new Date();
+        Log.i(TAG, "Note Object created " + "date:" + mDate.toString());
     }
 
     //setters

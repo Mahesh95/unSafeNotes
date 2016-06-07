@@ -2,6 +2,7 @@ package com.a1995.mahesh.unsafenotes.database;
 
 /**
  * Created by mahesh on 2/6/16.
+ * this class only serves the purpose for defining the schema of the database
  */
 public class Schema {
 

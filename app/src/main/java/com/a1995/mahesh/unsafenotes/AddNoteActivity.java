@@ -10,6 +10,7 @@ import android.util.Log;
 
 /**
  * Created by mahesh on 4/6/16.
+ * AddNoteActivity hosts AddNoteFragment
  */
 public class AddNoteActivity extends SingleFragmentActivity {
     private static final String TAG = "AddNoteActivity";

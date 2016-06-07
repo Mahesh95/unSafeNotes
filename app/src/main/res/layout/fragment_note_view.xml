@@ -1,11 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<include
-    layout="@layout/add_note_toolbar"
-    android:id="@+id/fragment_note_view_toolbar"
-    />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/add_note_style"
+    >
+
+    <include
+        layout="@layout/add_note_toolbar"
+        android:id="@+id/fragment_note_view_toolbar"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/fragment_note_view_title_edit_text"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        style="@style/title_edit_text_style"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+    <RadioGroup
+        android:id="@+id/fragment_note_view_note_category_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_note_view_work_radio_button"
+            android:layout_marginRight="4dp"
+            android:textColor="@color/secondary_text"
+            android:text="@string/work_radio_button_string"/>
+        <RadioButton
+            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_note_view_personal_radio_button"
+            android:textColor="@color/secondary_text"
+            android:text="@string/personal_radio_button_string"/>
+        <RadioButton
+            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_note_view_poetry_radio_button"
+            android:textColor="@color/secondary_text"
+            android:text="@string/poetry_radio_button_string"/>
+
+    </RadioGroup>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        />
+
+    <EditText
+        android:id="@+id/fragment_note_view_content_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:gravity="top"
+        android:padding="10dp"
+        style="@style/content_edit_text_style"
+        />
 
 
 </LinearLayout>

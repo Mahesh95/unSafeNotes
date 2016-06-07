@@ -14,9 +14,11 @@
             android:layout_width="match_parent"
             android:id="@+id/add_note_title_edit_text"
             android:layout_margin="16dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             style="@style/title_edit_text_style"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="textCapWords|textNoSuggestions|textMultiLine"
             />
             <RadioGroup
                 android:id="@+id/note_category_radio_group"
@@ -63,6 +65,7 @@
                 android:gravity="top"
                 android:padding="10dp"
                 style="@style/content_edit_text_style"
+                android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
                 />
 
 </LinearLayout>

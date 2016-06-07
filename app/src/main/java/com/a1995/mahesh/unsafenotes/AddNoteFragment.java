@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,7 @@ import java.util.Date;
 
 /**
  * Created by mahesh on 3/6/16.
+ * this fragment is hosted by AddNoteActivity when floating action button is clicked in notesFragment
  */
 public class AddNoteFragment extends Fragment {
     private Toolbar mToolbar;
@@ -29,6 +31,8 @@ public class AddNoteFragment extends Fragment {
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private RadioGroup mNoteCategoryRadioGroup;
+
+    private static final String TAG = "AddNoteFragment";
 
 
     public static AddNoteFragment newInstance(){
@@ -114,12 +118,14 @@ public class AddNoteFragment extends Fragment {
             mNote.setTitle(title);
             mNote.setCategory(category);
             mNote.setContent(content);
+            mNote.setDate(new Date());
+
+            Log.i(TAG, "saved date is: " + mNote.getDate().toString());
 
             NotesSingleton.get(getActivity()).addNote(mNote);
         }
 
-        Intent intent = MainActivity.getIntent(getActivity());
-        startActivity(intent);
+        getActivity().finish();
     }
 
 

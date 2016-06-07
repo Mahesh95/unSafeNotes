@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.a1995.mahesh.unsafenotes.database.NotesCursorWrapper;
 import com.a1995.mahesh.unsafenotes.database.NotesHelper;
@@ -17,6 +18,7 @@ import java.util.UUID;
  * Created by mahesh on 5/6/16.
  */
 public class NotesSingleton {
+    private static final String TAG = "NotesSingleton" ;
     private static NotesSingleton sNotesSingleton;
     private Context mContext;
     private List<Note> mNotes;
@@ -37,6 +39,7 @@ public class NotesSingleton {
 
     public void addNote(Note note){
         ContentValues values = getContentValues(note);
+        Log.i(TAG, "inserted into database date:" + values.get(Schema.NotesTable.Cols.DATE));
         mDatabase.insert(Schema.NotesTable.NAME, null, values);
     }
 
@@ -46,7 +49,7 @@ public class NotesSingleton {
         values.put(Schema.NotesTable.Cols.UUID, note.getId().toString());
         values.put(Schema.NotesTable.Cols.CATEGORY, note.getCategory());
         values.put(Schema.NotesTable.Cols.CONTENT, note.getContent());
-        values.put(Schema.NotesTable.Cols.DATE, note.getDate().toString());
+        values.put(Schema.NotesTable.Cols.DATE, note.getDate().getTime());
         values.put(Schema.NotesTable.Cols.TITLE, note.getTitle());
 
         return values;
@@ -102,15 +105,18 @@ public class NotesSingleton {
     }
 
     public Note getNote(UUID id){
+        Note note;
         NotesCursorWrapper cursorWrapper = queryDatabase(Schema.NotesTable.Cols.UUID + "=?", new String[]{id.toString()});
         try{
-            if(cursorWrapper.getCount() != 0){
+            if(cursorWrapper.getCount() == 0){
+                return null;
+            }else {
                 cursorWrapper.moveToFirst();
+                return cursorWrapper.getNote();
             }
         }finally {
             cursorWrapper.close();
         }
-        return cursorWrapper.getNote();
     }
 
     public void updateNote(Note note){
@@ -119,10 +125,10 @@ public class NotesSingleton {
         mDatabase.update(Schema.NotesTable.NAME,values, Schema.NotesTable.Cols.UUID+"=?", new String[]{uuidString});
     }
 
-    public void deleteNote(Note note){
+    public void deleteNote(UUID noteId){
         String tableName = Schema.NotesTable.NAME;
         String whereClause = Schema.NotesTable.Cols.UUID+"=?";
-        String[] whereArg = new String[]{note.getId().toString()};
+        String[] whereArg = new String[]{noteId.toString()};
 
         deleteRow(tableName, whereClause, whereArg);
     }

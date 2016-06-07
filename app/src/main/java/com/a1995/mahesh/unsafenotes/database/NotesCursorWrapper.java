@@ -10,12 +10,14 @@ import java.util.UUID;
 
 /**
  * Created by mahesh on 5/6/16.
+ * NotesCursorWrapper combines the cursor with a Note object
  */
 public class NotesCursorWrapper extends CursorWrapper {
     public NotesCursorWrapper(Cursor cursor) {
         super(cursor);
     }
 
+    // this method extracts data from cursor and wrap it up in Note object
     public Note getNote(){
         String uuidString = getString(getColumnIndex(Schema.NotesTable.Cols.UUID));
         String title = getString(getColumnIndex(Schema.NotesTable.Cols.TITLE));

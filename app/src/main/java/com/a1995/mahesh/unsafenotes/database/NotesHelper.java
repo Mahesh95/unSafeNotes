@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by mahesh on 2/6/16.
+ * NotesHelper creates the table
  */
 public class NotesHelper extends SQLiteOpenHelper {
     private static final String NAME = "notes.db";
@@ -17,6 +18,7 @@ public class NotesHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        //creating the notes table
         sqLiteDatabase.execSQL("create table " + Schema.NotesTable.NAME
         + "( _id integer primary key autoincrement, " +
                 Schema.NotesTable.Cols.UUID + "," +
