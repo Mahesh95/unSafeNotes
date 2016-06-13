@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,11 +25,14 @@ import java.util.List;
  * this fragment is hosted by the main activity
  * it uses a recyclerView with GridLayoutManager(2 columns) to show the note items
  */
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment implements SearchView.OnQueryTextListener {
     private static final String TAG = "NotesFragment";
+
     private RecyclerView mNotesRecyclerView;
     private FloatingActionButton mFab;          //floating action button for adding notes
     private NotesAdapter mAdapter;
+    private SearchView mSearchView;
+
     private static final String ARG_NOTES_CATEGORY = "notes_category"; //this argument specifies which category notes are to be displayed
 
     //this method returns an instance of notesFragment along with category of the notes stashed in its arguments
@@ -35,6 +43,12 @@ public class NotesFragment extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -61,6 +75,18 @@ public class NotesFragment extends Fragment {
         UpdateUI();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.notes_fragment_menu, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_search);
+
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setBaselineAligned(false);
+    }
+
     //this method updates the UI with note items
     private void UpdateUI() {
         String category = getArguments().getSerializable(ARG_NOTES_CATEGORY).toString();
@@ -76,6 +102,27 @@ public class NotesFragment extends Fragment {
             mAdapter.setNotes(notes);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    //this method filters recyclerView when search query is submitted
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        List<Note> notes = NotesSingleton.get(getActivity()).getNotes(query);
+        mAdapter.setNotes(notes);
+        mAdapter.notifyDataSetChanged();
+        mSearchView.clearFocus();
+
+        return true;
+    }
+
+    //this method filters recyclerView dynamically as search query is typed
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        List<Note> notes = NotesSingleton.get(getActivity()).getNotes(newText);
+        mAdapter.setNotes(notes);
+        mAdapter.notifyDataSetChanged();
+
+        return true;
     }
 
     private class NotesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

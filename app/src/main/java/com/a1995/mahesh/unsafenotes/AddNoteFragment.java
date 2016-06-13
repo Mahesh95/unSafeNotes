@@ -95,7 +95,7 @@ public class AddNoteFragment extends Fragment {
                 if(content.length() < 60){
                     title = content;
                 }else{
-                    title = content.substring(0,59);
+                    title = content.substring(0,60);
                 }
             }else{
                     title = mTitleEditText.getText().toString();

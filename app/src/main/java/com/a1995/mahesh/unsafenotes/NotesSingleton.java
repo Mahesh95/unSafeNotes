@@ -85,6 +85,28 @@ public class NotesSingleton {
         return mNotes;
     }
 
+    public List<Note> getNotes(String filterString){
+        mNotes = new ArrayList<>();
+        String wildCardString = "%"+filterString+"%";
+        NotesCursorWrapper cursor = queryDatabase(Schema.NotesTable.Cols.TITLE + " LIKE ?", new String[]{wildCardString});
+
+        try{
+            if(cursor.getCount() == 0){
+                return null;
+            }
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()){
+                mNotes.add(cursor.getNote());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+
+        return mNotes;
+    }
+
     public List<Note> getCategorisedNotes(String category){
         mCategorisedNotes = new ArrayList<>();
         NotesCursorWrapper cursor = queryDatabase(Schema.NotesTable.Cols.CATEGORY + "=?", new String[]{category});
