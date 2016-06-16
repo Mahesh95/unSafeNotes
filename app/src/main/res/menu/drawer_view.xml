@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <item android:id="@+id/all_notes"
+            android:title="@string/all_notes_string"
+            android:checked="true"/>
         <item android:id = "@+id/work_notes"
             android:title="@string/work_notes_string"
-            android:checked="true"/>
+            />
         <item android:id="@+id/personal"
             android:title="@string/personal_notes_string"/>
         <item android:id="@+id/poetry"

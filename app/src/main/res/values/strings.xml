@@ -11,4 +11,5 @@
     <string name="poetry_radio_button_string">Poetry</string>
     <string name="delete_alert_dialog_string">Are you sure you want to delete this note</string>
     <string name="action_search">search</string>
+    <string name="all_notes_string">All</string>
 </resources>

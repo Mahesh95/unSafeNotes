@@ -90,9 +90,16 @@ public class NotesFragment extends Fragment implements SearchView.OnQueryTextLis
     //this method updates the UI with note items
     private void UpdateUI() {
         String category = getArguments().getSerializable(ARG_NOTES_CATEGORY).toString();
+        List<Note> notes;
 
-        // acquiring a list of notes depending upon the category
-        List<Note> notes = NotesSingleton.get(getActivity()).getCategorisedNotes(category);
+        if(category == "all"){
+            notes = NotesSingleton.get(getActivity()).getNotes();
+        }else{
+            // acquiring a list of notes depending upon the category
+            notes = NotesSingleton.get(getActivity()).getCategorisedNotes(category);
+        }
+
+
 
         //setting up adapter
         if(mAdapter == null){

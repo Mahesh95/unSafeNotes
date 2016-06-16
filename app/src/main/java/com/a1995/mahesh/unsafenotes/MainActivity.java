@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);          //this enables hamburger icon in actionbar
-        mFragment = NotesFragment.newInstance("work");
+        mFragment = NotesFragment.newInstance("all");
         addFragment();                                      //this method places mFragment in fragment container
 
     }
@@ -73,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
     // NotesFragment.newInstance(String category) returns a fragment containing notes of that category
         switch (item.getItemId()){
+            case R.id.all_notes:
+                mFragment = NotesFragment.newInstance("all");
+                break;
+
             case R.id.work_notes:
                 mFragment = NotesFragment.newInstance("work");
                 break;
