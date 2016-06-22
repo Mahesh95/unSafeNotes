@@ -148,6 +148,7 @@ public class NoteViewFragment extends Fragment {
         mContentEditText.setEnabled(true);
         mTitleEditText.setEnabled(true);
         mContentEditText.requestFocus();
+        mContentEditText.setSelection(mContentEditText.getText().length());
 
         String category = mNote.getCategory();
         switch (category){
