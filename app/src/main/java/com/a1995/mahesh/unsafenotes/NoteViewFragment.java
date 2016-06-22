@@ -70,6 +70,7 @@ public class NoteViewFragment extends Fragment {
         mToolbar = (Toolbar) view.findViewById(R.id.fragment_note_view_toolbar);
         configToolbar();
 
+        setRetainInstance(true);
         return view;
     }
 

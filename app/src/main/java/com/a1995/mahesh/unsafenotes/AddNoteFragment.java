@@ -50,6 +50,7 @@ public class AddNoteFragment extends Fragment {
 
         mNoteCategoryRadioGroup = (RadioGroup) view.findViewById(R.id.note_category_radio_group);
         mContentEditText.requestFocus();
+        setRetainInstance(true);
         return view;
     }
 

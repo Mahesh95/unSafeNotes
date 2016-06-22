@@ -62,7 +62,7 @@ public class NotesSingleton {
                 whereArgs,
                 null,
                 null,
-                null);
+                Schema.NotesTable.Cols.DATE + " DESC");
 
         return new NotesCursorWrapper(cursor);
     }
