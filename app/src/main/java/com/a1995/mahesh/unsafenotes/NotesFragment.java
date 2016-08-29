@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class NotesFragment extends Fragment implements SearchView.OnQueryTextLis
         });
 
         mNotesRecyclerView = (RecyclerView) view.findViewById(R.id.notes_recycler_view);
-        mNotesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        mNotesRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         UpdateUI();
         return view;
     }
@@ -154,7 +155,7 @@ public class NotesFragment extends Fragment implements SearchView.OnQueryTextLis
 
             Log.i(TAG,"date is :" + mNote.getDate().toString());
             mNotesDateTextView.setText(dateString);
-            mNotesContentTextView.setText(note.getHintString()+"....");
+            mNotesContentTextView.setText(note.getContent());
             mNotesTitleTextView.setText
                     (note.getTitle().length() < 26 ? note.getTitle() : note.getTitle().substring(0,24));
         }
